@@ -17,38 +17,33 @@ class VideoCommentController extends Controller
         $this->middleware(['merge.user_id'])->only(['store', 'update']);
     }
 
-    public function store(VideoCommentRequest $request)
+    //-------------------------------------------------------------
+
+    public function update(VideoComment $comment, VideoCommentRequest $request)
     {
         try {
 
-            DB::beginTransaction();
 
-             $video = Video::findOrFail($request->video_id);
 
-             $comment = VideoComment::make(['comment' => $request->comment]);
+            $comment->update(['comment' => $request->comment]);
 
-             $comment->user()->associate($request->user_id);
+            return redirect()->route('dashboard.videos.edit',[$comment->video_id, '#comments'])->with(['success' => "success update"]);
 
-             $video->comments()->save($comment);
-
-            DB::commit();
-
-            return redirect()->back()->with(['success' => "success create"]);
         } catch (\Throwable $th) {
-
-            DB::rollback();
-
             return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
 
 
 
+    //-------------------------------------------------------------
+    //-------------------------------------------------------------
+
     public function destroy(VideoComment $comment)
     {
-        try{
-               $comment->delete();
-               return redirect()->back()->with(['success' => "success delete"]);
+        try {
+            $comment->delete();
+            return redirect()->route('dashboard.videos.edit', [$comment->video_id, '#comments'])->with(['success' => "success delete"]);
         } catch (\Throwable $th) {
 
 

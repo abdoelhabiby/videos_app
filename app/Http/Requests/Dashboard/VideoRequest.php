@@ -31,21 +31,12 @@ class VideoRequest extends FormRequest
             "description" => "required|string|min:10|max:500",
             "youtube" => "required|url|min:10",
             "published" => "required",
-            "user_id" => "required|integer",
-            "category_id" => "required|integer",
-            "image" => "required|image|mimes:png,jpg,jpeg",
+            "playlist_id" => "required|integer|exists:playlists,id",
 
-            "skills" => "sometimes|nullable|array",
-            "skills.*" => "exists:skills,id",
 
-            "tags" => "sometimes|nullable|array",
-            "tags.*" => "exists:tags,id",
         ];
 
 
-        if(in_array($this->getMethod(),['PUT','PATCH'])){
-            $rules['image'] = "sometimes|nullable|image|mimes:png,jpg,jpeg";
-        }
 
         return $rules;
 
@@ -56,9 +47,9 @@ class VideoRequest extends FormRequest
     public function attributes()
     {
         return [
-          'category_id' => 'category',
-          'skills.*' => 'skill',
-          'tags.*' => 'tag',
+
+            "playlist_id" => 'playlist'
         ];
     }
+
 }

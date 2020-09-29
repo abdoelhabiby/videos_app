@@ -13,4 +13,10 @@ class VideoComment extends Model
     {
         return $this->belongsTo(User::class,'user_id')->select('name','id');
     }
+
+
+    public function replies()
+    {
+        return $this->hasMany(CommentReply::class,'comment_id','id');
+    }
 }

@@ -15,7 +15,7 @@ class MergeUserId
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if(auth()->guard($guard)->check()){
+        if(auth()->check()){
            $request->merge(['user_id' => auth()->user()->id]);
         }
         return $next($request);

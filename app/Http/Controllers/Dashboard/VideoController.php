@@ -9,6 +9,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Dashboard\VideoRequest;
+use App\Models\Playlist;
 
 class VideoController extends DashboardController
 {
@@ -16,7 +17,6 @@ class VideoController extends DashboardController
 
     public function  __construct(Video $model)
     {
-        $this->middleware(['merge.user_id'])->only(['store', 'update']);
         parent::__construct($model);
     }
 
@@ -25,23 +25,27 @@ class VideoController extends DashboardController
     public function index()
     {
 
-        $model = $this->model;
+         $model = $this->model;
 
         $model = $this->filter($model);
 
 
         $rows = $model->with(
             [
-                'category' => function ($query) {
-
-                    $query->select('name', 'id');
-                }, 'user' => function ($us) {
+                'admin' => function ($us) {
 
                     $us->select('name', 'id');
 
+                },
+                'playlist' => function ($playlist) {
+
+                    $playlist->select('name', 'id');
+
                 }
+
             ]
         )->orderBy('id', 'desc')->paginate(PAGINATE_COUNT);
+
 
         return view('dashboard.' . $this->getClassNameModel() . '.index', compact(['rows']));
     }
@@ -49,11 +53,13 @@ class VideoController extends DashboardController
 
     public function create()
     {
-        $skills = Skill::get();
-        $tags = Tag::get();
+         $playlists = Playlist::select('id','name')->get();
 
-        return view('dashboard.' . $this->getClassNameModel() . '.create', compact('skills', 'tags'));
+        return view('dashboard.' . $this->getClassNameModel() . '.create', compact(['playlists']));
+
     }
+
+
 
     public function store(VideoRequest $request)
 
@@ -63,52 +69,20 @@ class VideoController extends DashboardController
 
         try {
 
-            $skills = [];
-            $tags = [];
 
-            DB::beginTransaction();
 
             $validated = $request->validated();
 
-            $image = $request->file('image');
+            $validated['admin_id'] = auth('admin')->user()->id;
 
-            $path = imageUpload($image, 'videos');
+            Video::create($validated);
 
-            $validated['image'] = $path;
-
-
-
-            if (isset($validated['skills']) && !empty($validated['skills'])) {
-                $skills =  $validated['skills'];
-                unset($validated['skills']);
-            }
-
-            if (isset($validated['tags']) && !empty($validated['tags'])) {
-                $tags =  $validated['tags'];
-                unset($validated['tags']);
-            }
-
-
-
-
-            $video =  Video::create($validated);
-
-            if (count($skills) > 0) {
-                $video->skills()->sync($skills);
-            }
-
-            if (count($tags) > 0) {
-                $video->tags()->sync($tags);
-            }
-
-
-            DB::commit();
 
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success create"]);
 
         } catch (\Throwable $th) {
-            DB::rollback();
 
+        //    return $th->getMessage();
             return redirect()->route('dashboard.' . $this->module_name . '.create')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
@@ -118,15 +92,12 @@ class VideoController extends DashboardController
     public function edit($id)
     {
         $row = $this->model->findOrFail($id);
-        $skills = Skill::get();
-        $tags = Tag::get();
-        $video_skills = $row->skills()->pluck('skill_id')->toArray();
-        $video_tags = $row->tags()->pluck('tag_id')->toArray();
-        $comments = $row->comments()->with('user')->orderBy('id','desc')->get();
+        $playlists = Playlist::select('id', 'name')->get();
 
+        $comments = $row->comments()->with(['user', 'replies'])->get();
 
         return view('dashboard.' . $this->getClassNameModel() . '.edit', compact([
-            'row', 'skills', 'video_skills','tags', 'video_tags','comments'
+            'row','comments', 'playlists'
             ]));
 
     }
@@ -136,63 +107,17 @@ class VideoController extends DashboardController
     public function update(VideoRequest $request, Video $video)
     {
 
-        $skills = [];
-        $tags = [];
-
 
         try {
 
-            DB::beginTransaction();
 
             $validated = $request->validated();
-
-            if ($request->hasFile('image') && $request->image != null) {
-
-                $image = $request->file('image');
-
-                $path = imageUpload($image, 'videos');
-
-                $validated['image'] = $path;
-
-                deleteFile($video->image);
-            }
-
-
-
-            if (isset($validated['skills']) && !empty($validated['skills'])) {
-                $skills =  $validated['skills'];
-                unset($validated['skills']);
-            }
-
-            if (isset($validated['tags']) && !empty($validated['tags'])) {
-                $tags =  $validated['tags'];
-                unset($validated['tags']);
-            }
-
-
-            if (count($skills) > 0) {
-                $video->skills()->sync($skills);
-            } else {
-                $video->skills()->detach();
-            }
-
-
-            if (count($tags) > 0) {
-                $video->tags()->sync($tags);
-            } else {
-                $video->tags()->detach();
-            }
-
-
-
             $video->update($validated);
 
-            DB::commit();
 
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success update"]);
         } catch (\Throwable $th) {
 
-            DB::rollback();
             return redirect()->back()->with(['error' => "some errors happend pleas try again later"]);
         }
     }

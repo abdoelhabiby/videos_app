@@ -55,6 +55,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'playlists' => [
+            'driver' => 'local',
+            'root' => public_path('images/playlists'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
         'videos' => [
             'driver' => 'local',
             'root' => public_path('images/videos'),

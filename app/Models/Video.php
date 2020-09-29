@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Playlist;
 use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
@@ -14,39 +15,29 @@ class Video extends Model
         "meta_description",
         "youtube",
         "published",
-        "user_id",
-        "category_id",
-        "image",
+        "admin_id",
+        "playlist_id",
     ];
 
 
 
-    public function user()
+    public function admin()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(Admin::class,'admin_id');
     }
 
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class,'category_id');
-    }
-
-
-    public function skills()
-    {
-        return $this->belongsToMany(Skill::class,'skills_videos');
-    }
-
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class,'tags_videos');
-    }
 
 
     public function comments()
     {
         return $this->hasMany(VideoComment::class,'video_id');
+    }
+
+
+    public function playlist()
+    {
+        return $this->belongsTo(Playlist::class,'playlist_id');
     }
 
 

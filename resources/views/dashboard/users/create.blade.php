@@ -91,7 +91,7 @@ $model_name = 'users';
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="{{ $input }}"> {{ $input }} </label>
-                                                            <input type="email" value="{{ old('$input') }}"
+                                                            <input type="email" value="{{ old($input) }}"
                                                                 id="{{ $input }}" class="form-control"
                                                                 placeholder="input {{ $input }}   " name="{{ $input }}">
                                                             @error($input)

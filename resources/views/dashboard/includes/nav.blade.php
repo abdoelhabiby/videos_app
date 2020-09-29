@@ -9,7 +9,7 @@
                 <li class="nav-item">
                     <a class="navbar-brand" href="index.html">
                         <img class="brand-logo" alt="modern admin logo" src="{{asset('admin/images/logo/logo.png')}}">
-                        <h3 class="brand-text">7az</h3>
+                        <h3 class="brand-text">OS</h3>
                     </a>
                 </li>
                 <li class="nav-item d-md-none">
@@ -236,7 +236,7 @@
                         <div class="dropdown-menu dropdown-menu-right pr-1"><a class="dropdown-item" href=""><i
                                     class="ft-user"></i>  تعديل الملف الشحصي </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href=""><i class="ft-power"></i> تسجيل
+                            <a class="dropdown-item" href="{{route('dashboard.logout')}}"><i class="ft-power"></i> تسجيل
                                 الخروج </a>
                         </div>
                     </li>

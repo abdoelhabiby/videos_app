@@ -72,8 +72,8 @@ $model_name = 'videos';
                                                     <th>#</th>
                                                     <th>Name</th>
                                                     <th>Published</th>
-                                                    <th>Category</th>
-                                                    <th>User</th>
+                                                    <th>Admin</th>
+                                                    <th>playlist</th>
                                                     <th>Action</th>
 
                                                 </tr>
@@ -89,8 +89,8 @@ $model_name = 'videos';
                                                             <td> {{ orderNumberOfRows() + $index + 1 }}</td>
                                                             <td>{{ $row->name }}</td>
                                                             <td>{{ $row->published ? 'true' : 'false' }}</td>
-                                                            <td>{{ $row->category->name }}</td>
-                                                            <td>{{ $row->user->name }}</td>
+                                                            <td>{{ $row->admin->name }}</td>
+                                                            <td>{{ $row->playlist->name }}</td>
                                                             <td>
                                                                 <div class="btn-group" role="group"
                                                                     aria-label="Basic example">

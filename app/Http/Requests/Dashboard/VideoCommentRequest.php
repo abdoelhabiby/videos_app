@@ -23,10 +23,19 @@ class VideoCommentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            "video_id" => 'required|integer',
+        $rules =  [
+            "video_id" => 'required|integer|exists:videos,id',
             "user_id" => 'required|integer',
             "comment" => 'required|string|min:3|max:500',
         ];
+
+        if(in_array($this->getMethod(),['PUT','PATCH'])){
+            unset($rules['video_id']);
+            unset($rules['user_id']);
+        }
+
+        return $rules;
+
+
     }
 }

@@ -109,30 +109,8 @@ $model_name = 'videos';
 
                                                 <div class="row">
 
-                                                    @php
-                                                    $input = 'category_id';
-                                                    @endphp
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="{{ $input }}"> category </label>
-                                                            <select name="{{ $input }}" id="{{ $input }}"
-                                                                class="form-control">
-                                                                @if (App\Models\Category::select('name', 'id')->count() > 0)
-                                                                 <option selected disabled>select category</option>
-                                                                    @foreach (App\Models\Category::select('name', 'id')->get() as $category)
-                                                                        <option value="{{ $category->id }}"
-                                                                            {{ old($input) ==  $category->id ? 'selected' : '' }}>
-                                                                            {{ $category->name }}</option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
 
 
-                                                            @error($input)
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
 
 
                                                     @php
@@ -160,77 +138,6 @@ $model_name = 'videos';
                                                         </div>
                                                     </div>
 
-
-
-                                                </div>
-
-
-
-                                                <div class="row">
-
-
-                                                    @php
-                                                    $input = 'skills';
-                                                    @endphp
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="{{ $input }}"> {{$input}} </label>
-                                                            <select name="{{ $input }}[]" id="{{ $input }}" multiple style="height: 100px"
-                                                                class="form-control skills-multiple">
-                                                                @if ($skills->count() > 0)
-                                                                    @foreach ($skills as $skill)
-                                                                        <option value="{{ $skill->id }}"
-                                                                            @if(old($input))
-                                                                                {{ in_array($skill->id,old($input))    ? 'selected' : '' }}
-                                                                            @endif
-                                                                            >
-                                                                            {{ $skill->name }}</option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-
-
-                                                            @error('skills.0')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    @php
-                                                    $input = 'tags';
-                                                    @endphp
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="{{ $input }}"> {{$input}} </label>
-                                                            <select name="{{ $input }}[]" id="{{ $input }}" multiple style="height: 100px"
-                                                                class="form-control tags-multiple">
-                                                                @if ($tags->count() > 0)
-                                                                    @foreach ($tags as $tag)
-                                                                        <option value="{{ $tag->id }}"
-                                                                            @if(old($input))
-                                                                                {{ in_array($tag->id,old($input))    ? 'selected' : '' }}
-                                                                            @endif
-                                                                            >
-                                                                            {{ $tag->name }}</option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-
-
-                                                            @error('tags.0')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-
-
-                                                </div>
-
-
-                                                   <div class="row">
-
-
                                                     @php
                                                     $input = 'youtube';
                                                     @endphp
@@ -246,22 +153,43 @@ $model_name = 'videos';
                                                         </div>
                                                     </div>
 
-                                                    @php
-                                                    $input = 'image';
-                                                    @endphp
-                                                    <div class="col-md-6">
+
+
+
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        @php
+                                                        $input = 'playlist_id';
+                                                        @endphp
                                                         <div class="form-group">
-                                                            <label for="{{ $input }}"> {{ $input }} </label>
-                                                            <input type="file"  id="{{ $input }}"
-                                                                class="form-control" placeholder="select image   "
-                                                                name="{{ $input }}">
+                                                            <label for="{{ $input }}"> playlist </label>
+                                                            <select name="{{ $input }}" id="{{ $input }}"
+                                                                class="form-control">
+                                                                <option disabled selected>select playlist</option>
+
+                                                                @foreach ($playlists as $playlist)
+                                                                  <option value="{{$playlist->id}}" {{old($input) == $playlist->id ? 'selected' : '' }} >{{$playlist->name}}</option>
+                                                                @endforeach
+
+
+                                                            </select>
+
+
                                                             @error($input)
-                                                            <span class="text-danger">{{ $message }} </span>
+                                                            <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
-
                                                 </div>
+
+
+
+
+
+
 
                                                 <div class="row">
 
@@ -336,13 +264,12 @@ $model_name = 'videos';
 
 
 @push('js')
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
 
-    $('.skills-multiple').select2();
-    $('.tags-multiple').select2();
+            $('#playlist_id').select2();
 
-});
+        });
 
-</script>
+    </script>
 @endpush

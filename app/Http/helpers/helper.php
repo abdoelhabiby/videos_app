@@ -71,3 +71,14 @@ function deleteFile($photo_to_delet)
         \Illuminate\Support\Facades\File::delete(public_path($photo_to_delet));
     }
 }
+
+
+function user(){
+
+    return auth()->user() ?? false;
+}
+
+function admin(){
+
+    return auth('admin')->user() ?? false;
+}

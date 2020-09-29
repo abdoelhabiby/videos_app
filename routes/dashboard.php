@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 define('PAGINATE_COUNT', 3); // make get paginate count from model dynamic hhhhh
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth:admin'], function () {
 
 
 
@@ -13,11 +13,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resources([
 
+        'admins' => "AdminController",
         'users' => "UserController",
         'categories' => "CategoryController",
         'skills' => "SkillController",
         'tags' => "TagController",
         'pages' => "PageController",
+        'playlists' => "PlaylistController",
         'videos' => "VideoController",
 
     ], [
@@ -25,11 +27,27 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
 
-    Route::post('video/comment',"VideoCommentController@store")->name('dasboard.video.comment.store');
-    Route::get('video/comment/{comment}',"VideoCommentController@destroy")->name('dasboard.video.comment.destroy');
+    Route::delete('video/comments/{comment}',"VideoCommentController@destroy")->name('dasboard.video.comment.destroy');
+
+    Route::put("video/comments/{comment}", "VideoCommentController@update")->name('dasboard.video.comment.update');
+
+
+    Route::post('comment/replay', "CommentReplyController@store")->name('dasboard.comment.reply.store');
+    Route::put('comment/replay/{reply}/update', "CommentReplyController@update")->name('dasboard.comment.reply.update');
+    Route::delete('comment/replay/{reply}', "CommentReplyController@destroy")->name('dasboard.comment.reply.destroy');
+
+
+
+    Route::get('logout', 'LoginController@logout')->name('dashboard.logout');
 
 });
 
+
+
+
+
+Route::get('login','LoginController@showLoginForm')->name('dashboard.login')->middleware('guest:admin');
+Route::post('login','LoginController@login')->name('dashboard.login')->middleware('guest:admin');
 
 
 
