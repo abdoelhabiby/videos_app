@@ -244,10 +244,29 @@
             {{-- ------------------------end nav item
             videos--------------------------}}
 
-            {{-- ------------------------start nav item
-            --------------------------}}
-            {{-- ------------------------end nav item
-            --------------------------}}
+
+
+            {{-- ------------start nav item---------------}}
+   @php
+            $module_name = 'contacts';
+            @endphp
+
+            <li class="nav-item {{ isActive($module_name) }}">
+
+                <a href=""><i class="la la-comments"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> {{ ucfirst($module_name) }}</span>
+                    <span
+                        class="badge badge badge-info badge-pill float-right mr-2">{{ App\Models\Contact::count() }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="active"><a class="menu-item" href="{{ route('dashboard.' . $module_name . '.index') }}"
+                            data-i18n="nav.dash.ecommerce">show all </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            {{-- -------------end nav item------}}
 
 
 

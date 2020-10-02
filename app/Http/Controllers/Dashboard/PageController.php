@@ -24,11 +24,18 @@ class PageController extends DashboardController
 
         try {
 
+            $validated = $request->validated();
+
+            if ($request->has('image') && $request->image != null) {
+                $image = $request->file('image');
+                $path = imageUpload($image, 'pages');
+                $validated['image'] = $path;
+            }
 
 
 
 
-             Page::create($request->validated());
+            Page::create($validated);
 
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success create"]);
         } catch (\Throwable $th) {
@@ -43,10 +50,22 @@ class PageController extends DashboardController
     {
         try {
 
-          ;
+
+            $validated = $request->validated();
+
+            if ($request->has('image') && $request->image != null) {
+                $image = $request->file('image');
+                $path = imageUpload($image, 'pages');
+                $validated['image'] = $path;
+
+                if($page->image != null){
+                    deleteFile($page->image);
+                }
+
+            }
 
 
-            $page->update($request->validated());
+            $page->update($validated);
 
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success update"]);
         } catch (\Throwable $th) {
@@ -54,6 +73,25 @@ class PageController extends DashboardController
         }
     }
 
+
+    public function destroy($id)
+    {
+
+        try {
+
+            $row = $this->model->findOrFail($id);
+
+            if ($row->image != null) {
+                deleteFile($row->image);
+            }
+
+            $row->delete();
+
+            return redirect()->route('dashboard.' . $this->getClassNameModel() . '.index')->with(['success' => "success delete"]);
+        } catch (\Throwable $th) {
+            return redirect()->route('dashboard.' . $this->getClassNameModel() . '.index')->with(['error' => "somw errors happend pleas try again later"]);
+        }
+    }
 
 
 }

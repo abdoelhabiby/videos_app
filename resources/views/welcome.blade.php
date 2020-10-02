@@ -6,7 +6,7 @@
 
     <!-- start Header -->
 
-    <div class="page-header section-dark" style="background-image: url('{{ asset('front') }}/img/antoine-barres.jpg')">
+    <div class="page-header section-dark" style="background-image: url('{{ asset('front') }}/img/daniel-olahh.jpg')">
         <div class="filter"></div>
         <div class="content-center">
             <div class="container">
@@ -27,6 +27,18 @@
         </div>
 
         <!-- End Header -->
+
+
+
+        <!-- start section latest playlist -->
+
+        @include('front.home._latest-playlist')
+
+
+        <!-- End section latest playlist -->
+
+
+
 
 
 

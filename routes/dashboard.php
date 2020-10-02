@@ -28,13 +28,25 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
 
     Route::delete('video/comments/{comment}',"VideoCommentController@destroy")->name('dasboard.video.comment.destroy');
-
     Route::put("video/comments/{comment}", "VideoCommentController@update")->name('dasboard.video.comment.update');
 
 
-    Route::post('comment/replay', "CommentReplyController@store")->name('dasboard.comment.reply.store');
+    //----------------start reply from dashboard----------------------
+    Route::post('comment/replay/{comment}', "CommentReplyController@store")->name('dasboard.comment.reply.store');
     Route::put('comment/replay/{reply}/update', "CommentReplyController@update")->name('dasboard.comment.reply.update');
     Route::delete('comment/replay/{reply}', "CommentReplyController@destroy")->name('dasboard.comment.reply.destroy');
+    //----------------end reply from dashboard----------------------
+
+
+
+    //----------------start contaxt us -----------------------------------
+
+    Route::resource('contacts', 'ContactUsController',['as' => 'dashboard'])->except(['edit','update','store']);
+    Route::post('contacts/reply/{contact}', 'ContactUsController@reply')->name('dashboard.contact.reply');
+    Route::delete('contacts/reply/{reply}', 'ContactUsController@replyDestroy')->name('dashboard.contact.reply.destroy');
+    //----------------start contaxt us -----------------------------------
+
+
 
 
 

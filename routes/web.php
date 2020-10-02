@@ -25,13 +25,9 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/playlists', "PlaylistController@index")->name('front.playlist.index');
     Route::get('/playlists/{playlist}', "PlaylistController@show")->name('front.playlist.show');
-
     Route::get('/video/{video}', "PlaylistController@videoShow")->name('front.playlist.videos.show');
-
     Route::get('/tags/{tag}', "PlaylistController@tags")->name('front.tags.show');
-
     Route::get('/skills/{skill}', "PlaylistController@skills")->name('front.skills.show');
-
     Route::get('/category/{category}', "PlaylistController@category")->name('front.category.show');
 
 
@@ -43,6 +39,31 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::put('video/comment/{comment}/update', 'VideoCommentController@update')->name('video.comment.update');
     Route::delete('video/comment/{comment}', 'VideoCommentController@destroy')->name('video.comment.destroy');
+
+
+    //----------------start reply comment----------------------
+
+    Route::group(['middleware' => 'auth:admin'], function () {
+
+        Route::post('comment/replay/{comment}', "CommentReplyController@store")->name('front.comment.reply.store');
+        Route::put('comment/replay/{reply}/update', "CommentReplyController@update")->name('front.comment.reply.update');
+        Route::delete('comment/replay/{reply}', "CommentReplyController@destroy")->name('front.comment.reply.destroy');
+    });
+
+    //----------------end reply comment----------------------
+
+    //--------------start contact us ---------------------
+
+     Route::post("/conatct-us","ContactUsController@store")->name('front.contact-us.store');
+
+    //--------------end contact us -----------------------
+
+    //----------------------pages-----------------------
+
+
+    Route::get("page/{page:name}",'WelcomeController@page')->name('front.page');
+
+
 
 
 });

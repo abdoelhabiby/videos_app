@@ -24,11 +24,16 @@ class PageRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules=  [
             "name" => "required|string|max:100|min:2|" . Rule::unique('pages', 'name')->ignore($this->page),
             "meta_keywords" => "sometimes|nullable|string|max:100",
             "meta_description" => "sometimes|nullable|string|max:500",
             "description" => "required|string|min:10|max:500",
+            "image" => "sometimes|nullable|image|mimes:png,jpg,jpeg",
         ];
+
+
+
+        return $rules;
     }
 }

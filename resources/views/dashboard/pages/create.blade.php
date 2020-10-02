@@ -75,7 +75,7 @@ $model_name = 'pages';
                                                     @endphp
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="name"> {{ $input }} </label>
+                                                            <label for="{{ $input }}"> {{ $input }} </label>
                                                             <input type="text" value="{{ old($input) }}" id="{{ $input }}"
                                                                 class="form-control" placeholder="input {{ $input }}   "
                                                                 name="{{ $input }}">
@@ -103,6 +103,24 @@ $model_name = 'pages';
                                                 </div>
 
                                                 <div class="row">
+
+                                                    @php
+                                                    $input = 'image';
+                                                    @endphp
+
+                                                    <div class="col-md-12">
+
+                                                        <div class="form-group">
+                                                            <label for="{{ $input }}">  {{ $input }} </label>
+                                                            <input type="file" name="{{$input}}" class="form-control">
+
+                                                            @error($input)
+                                                            <span class="text-danger">{{ $message }} </span>
+                                                            @enderror
+
+                                                        </div>
+                                                    </div>
+
 
                                                     @php
                                                     $input = 'description';

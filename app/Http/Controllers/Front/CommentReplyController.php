@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CommentReplyRequest;
@@ -25,7 +25,7 @@ class CommentReplyController extends Controller
 
              $comment->replies()->save($reply);
 
-            return redirect()->route('dashboard.videos.edit', [$comment->video->id, '#comments'])->with(['success' => "success add comment"]);
+            return redirect()->route('front.playlist.videos.show', [$comment->video->id, '#comments'])->with(['success' => "success add comment"]);
          } catch (\Throwable $th) {
              return redirect()->back()->with(['error' => "error ! pleas tray later"]);
          }

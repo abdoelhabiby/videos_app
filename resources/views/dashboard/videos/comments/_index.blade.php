@@ -18,27 +18,23 @@
 
                     {{-- ----------------start reply ----------------
                     --}}
-                    @if ($comment->replies->count() > 0)
-                        <div class="replies ml-1 ml-1 pt-2">
+                    <div class="replies ml-1 ml-1 pt-2">
+                        @if ($comment->replies->count() > 0)
 
                             <a href="javascript:void(0);" onclick="$('#replies-{{ $comment->id }}').toggle()">
-                                replies <span class="replies_count"> {{ $comment->replies->count() }}</span> <i class="la la-arrow-down la-sm"
-                                    style="font-size: 14px !important ;"></i> </a>
+                                replies <span class="replies_count"> {{ $comment->replies->count() }}</span> <i
+                                    class="la la-arrow-down la-sm" style="font-size: 14px !important ;"></i> </a>
 
 
                             <div class=" p-1" id="replies-{{ $comment->id }}" style="display: none">
 
-                                @include('dashboard.videos.comments.shared.replies._index', ['replies' =>
+                                @include('dashboard.videos.comments.replies._index', ['replies' =>
                                 $comment->replies])
 
                             </div>
 
-
-
-                        </div>
-
-
-                    @endif
+                        @endif
+                    </div>
 
                     {{-- ----------------end reply ----------------
                     --}}
@@ -77,7 +73,7 @@
                         <form action="{{ route('dasboard.comment.reply.store', $comment->id) }}" method="post">
                             @csrf
 
-                            <label for="" class="text-white">reply for comment</label>
+                            <label for="" >reply for comment</label>
 
                             <textarea type="text" rows="4" class="form-control mt-1" placeholder="add reply  "
                                 name="reply"></textarea>

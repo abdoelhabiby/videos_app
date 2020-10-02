@@ -11,7 +11,7 @@
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
-          <!-- CSRF Token -->
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -32,12 +32,18 @@
     <div class="main">
 
 
-            @yield('content')
+        @yield('content')
 
 
     </div>
 
 
+
+    {{-- start contact --}}
+
+    @include('front.includes.contact-us')
+
+    {{-- end contact --}}
 
     {{-- start footer --}}
 
@@ -94,6 +100,7 @@
 
     </script>
 
+    @stack('scripts')
 
     @yield('js')
 

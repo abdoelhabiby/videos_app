@@ -11,5 +11,6 @@ class Page extends Model
         "description",
         "meta_keywords",
         "meta_description",
+        "image",
     ];
 }

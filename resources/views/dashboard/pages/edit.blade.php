@@ -48,6 +48,13 @@ $model_name = 'pages';
                 <!-- Basic form layout section start -->
                 <section id="basic-form-layouts">
                     <div class="row match-height">
+
+                        @if ($row->image)
+                            <div class="col-md-12 d-flex justify-content-center mb-3">
+                                <img src="{{asset($row->image)}}" style="max-height: 400px; width:80%" alt="">
+                            </div>
+                        @endif
+
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
@@ -72,7 +79,7 @@ $model_name = 'pages';
                                             @method('put')
 
                                             <div class="form-body">
-                                                <h4 class="form-section"> {{Str::singular($model_name)}} data </h4>
+                                                <h4 class="form-section"> {{ Str::singular($model_name) }} data </h4>
 
                                                 <div class="row">
 
@@ -91,15 +98,15 @@ $model_name = 'pages';
                                                         </div>
                                                     </div>
 
-                                                 @php
+                                                    @php
                                                     $input = 'meta_keywords';
                                                     @endphp
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="{{ $input }}"> meta keywords </label>
-                                                            <input type="text" value="{{ $row->$input }}"
-                                                                id="{{ $input }}" class="form-control"
-                                                                placeholder="input meta keywords   "  name="{{ $input }}">
+                                                            <input type="text" value="{{ $row->$input }}" id="{{ $input }}"
+                                                                class="form-control" placeholder="input meta keywords   "
+                                                                name="{{ $input }}">
                                                             @error($input)
                                                             <span class="text-danger">{{ $message }} </span>
                                                             @enderror
@@ -110,15 +117,33 @@ $model_name = 'pages';
                                                 <div class="row">
 
                                                     @php
+                                                    $input = 'image';
+                                                    @endphp
+
+                                                    <div class="col-md-12">
+
+                                                        <div class="form-group">
+                                                            <label for="{{ $input }}"> {{ $input }} </label>
+                                                            <input type="file" name="{{ $input }}" class="form-control">
+
+                                                            @error($input)
+                                                            <span class="text-danger">{{ $message }} </span>
+                                                            @enderror
+
+                                                        </div>
+                                                    </div>
+
+                                                    @php
                                                     $input = 'description';
                                                     @endphp
 
                                                     <div class="col-md-12">
 
                                                         <div class="form-group">
-                                                            <label for="{{ $input }}">  description </label>
+                                                            <label for="{{ $input }}"> description </label>
                                                             <textarea rows="4" id="{{ $input }}" class="form-control"
-                                                                placeholder="input description   " name="{{ $input }}">{{$row->$input}}</textarea>
+                                                                placeholder="input description   "
+                                                                name="{{ $input }}">{{ $row->$input }}</textarea>
 
                                                             @error($input)
                                                             <span class="text-danger">{{ $message }} </span>
@@ -140,7 +165,8 @@ $model_name = 'pages';
                                                         <div class="form-group">
                                                             <label for="{{ $input }}"> meta description </label>
                                                             <textarea rows="4" id="{{ $input }}" class="form-control"
-                                                                placeholder="input meta description   " name="{{ $input }}">{{$row->$input}}</textarea>
+                                                                placeholder="input meta description   "
+                                                                name="{{ $input }}">{{ $row->$input }}</textarea>
 
                                                             @error($input)
                                                             <span class="text-danger">{{ $message }} </span>

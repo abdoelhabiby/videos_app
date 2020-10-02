@@ -270,9 +270,7 @@ $model_name = 'videos';
 
 
                                             <div class="row">
-                                                {{-- <div class="col-md-6">
-                                                    @include('dashboard.videos.comments._create')
-                                                </div> --}}
+
                                                 <div class="col-md-12">
                                                     @include('dashboard.videos.comments._index')
                                                 </div>

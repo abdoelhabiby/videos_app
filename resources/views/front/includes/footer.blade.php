@@ -1,13 +1,23 @@
-   <footer class=" footer footer-black footer-white fixed-bottom">
-        <div class=" container">
+<footer class="footer   footer-white ">
+    <div class="container">
+        <div class="row">
+            <nav class="footer-nav">
+                <ul>
+                    @foreach (pages() as $page)
+                        <li>
+                            <a href="{{route('front.page',$page->name)}}" > {{pageNameReplaceespace($page->name)}}</a>
+                        </li>
+                    @endforeach
 
-            <div class="credits ml-auto text-center">
+
+                </ul>
+            </nav>
+            <div class="credits ml-auto">
                 <span class="copyright">
-
-
                     {{ date('Y') }} ©
                     ,Hala <i class="fa fa-heart heart"></i> Madrid
                 </span>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>

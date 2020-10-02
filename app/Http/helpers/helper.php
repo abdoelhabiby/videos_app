@@ -82,3 +82,22 @@ function admin(){
 
     return auth('admin')->user() ?? false;
 }
+
+
+//------------------get playlist latest in home---------
+
+function getPlaylistLatestHome()
+{
+   return App\Models\Playlist::orderBy('id', 'desc')->limit(3)->get();
+}
+
+//------------get pages------------------------
+
+function pages()
+{
+    return App\Models\Page::all();
+}
+
+function pageNameReplaceespace($name){
+    return trim(str_replace(' ','-', $name));
+}
