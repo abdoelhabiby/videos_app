@@ -32,6 +32,7 @@ class VideoRequest extends FormRequest
             "youtube" => "required|url|min:10",
             "published" => "required",
             "playlist_id" => "required|integer|exists:playlists,id",
+            "order" => 'sometimes|nullable|integer',
 
 
         ];

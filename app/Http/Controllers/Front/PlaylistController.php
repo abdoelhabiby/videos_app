@@ -22,8 +22,17 @@ class PlaylistController extends Controller
     }
 
 
-    public function show(Playlist $playlist)
+    public function show($id)
     {
+        $playlist = Playlist::with([
+            'category',
+            'videos' => function($q){
+                return $q->order();
+            },
+            'skills',
+            'tags'
+        ])->findOrFail($id);
+
         $row = $playlist;
         $title = $row->name;
 
@@ -62,12 +71,12 @@ class PlaylistController extends Controller
 
 
 
-    public function videoShow(Video $video)
+    public function videoShow($id)
     {
 
 
-       $video = $video->with(['playlist','comments.user', 'admin' => function($q){
-             return $q->select('name','id');
+        $video = Video::where('id', $id)->with(['playlist', 'comments.user', 'admin' => function ($q) {
+            return $q->select('name', 'id');
         }])->first();
 
 

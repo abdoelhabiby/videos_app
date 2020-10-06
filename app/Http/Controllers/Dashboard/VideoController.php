@@ -6,10 +6,11 @@ use App\Models\Tag;
 use App\Models\Skill;
 use App\Models\Video;
 use App\Models\Category;
+use App\Models\Playlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use App\Http\Requests\Dashboard\VideoRequest;
-use App\Models\Playlist;
 
 class VideoController extends DashboardController
 {
@@ -67,6 +68,8 @@ class VideoController extends DashboardController
 
 
 
+
+
         try {
 
 
@@ -75,15 +78,18 @@ class VideoController extends DashboardController
 
             $validated['admin_id'] = auth('admin')->user()->id;
 
+            if($validated['order'] == null ){
+                $validated['order'] = 0;
+            }
+
             Video::create($validated);
 
-
-            return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success create"]);
+            return redirect()->back()->with(['success' => "success create"]);
 
         } catch (\Throwable $th) {
 
-        //    return $th->getMessage();
-            return redirect()->route('dashboard.' . $this->module_name . '.create')->with(['error' => "somw errors happend pleas try again later"]);
+            return $th->getMessage();
+            return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
 
@@ -115,7 +121,7 @@ class VideoController extends DashboardController
             $video->update($validated);
 
 
-            return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success update"]);
+            return redirect()->back()->with(['success' => "success update"]);
         } catch (\Throwable $th) {
 
             return redirect()->back()->with(['error' => "some errors happend pleas try again later"]);
@@ -124,5 +130,20 @@ class VideoController extends DashboardController
 
 
 
+    public function destroy($id)
+    {
+
+        try {
+
+            $row = $this->model->findOrFail($id);
+
+
+            $row->delete();
+
+            return redirect()->back()->with(['success' => "success delete"]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
+        }
+    }
 
 }

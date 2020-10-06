@@ -9,6 +9,8 @@
     <title>
         videos app @yield('title')
     </title>
+    <meta name="description"  content="@yield('meta_des')">
+    <meta name="keywords" content="@yield('meta_key')">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <!-- CSRF Token -->

@@ -11,7 +11,7 @@ class VideoComment extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id')->select('name','id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
 

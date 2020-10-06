@@ -1,56 +1,15 @@
-@extends('layouts.dashboard')
-
-
-@php
-$model_name = 'playlists';
-@endphp
-
-
-@section('title')
-    | dashboard | {{ $model_name }}
-@endsection
-
-@section('content')
-
-    <div class="app-content content">
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-6 col-12 mb-2">
-
-                    <div class="row breadcrumbs-top">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">home</a>
-                                </li>
-                                <li class="breadcrumb-item active"> {{ $model_name }}
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="content-body">
-
-                @include('dashboard.includes.alerts.success')
-                @include('dashboard.includes.alerts.errors')
-
-
-
-
-                <!-- DOM - jQuery events table -->
+  <!-- DOM - jQuery events table -->
                 <section id="dom">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title"> {{ $model_name }}</h4>
+                                    <h4 class="card-title"> {{ $model_name }} ({{ $videos->total() }})</h4>
 
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a href="{{ route('dashboard.' . $model_name . '.create') }}"
-                                                    class="btn btn-outline-info btn-sm box-shadow-2"><i
-                                                        class="la la-plus"></i></a></li>
+
                                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -71,30 +30,29 @@ $model_name = 'playlists';
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Name</th>
-                                                    <th>Image</th>
+                                                    <th>Published</th>
+                                                    <th>Admin</th>
+                                                    <th>order</th>
                                                     <th>Action</th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
 
-                                                @if ($rows->count() > 0)
+                                                @if ($videos->count() > 0)
 
 
-                                                    @foreach ($rows as $index => $row)
+                                                    @foreach ($videos as $index => $row)
 
                                                         <tr>
                                                             <td> {{ orderNumberOfRows() + $index + 1 }}</td>
                                                             <td>{{ $row->name }}</td>
-                                                            <td> <img src="{{ asset($row->image) }}" width="50" height="50" alt=""> </td>
+                                                            <td>{{ $row->published ? 'true' : 'false' }}</td>
+                                                            <td>{{ $row->admin->name }}</td>
+                                                            <td>{{ $row->order }}</td>
                                                             <td>
                                                                 <div class="btn-group" role="group"
                                                                     aria-label="Basic example">
-
-                                                                    <a href="{{ route('dashboard.' . $model_name . '.show', $row->id) }}"
-                                                                        class="btn btn-outline-primary btn-sm  box-shadow-3 mr-1 mb-1">
-                                                                        <i class="la la-eye"></i>
-                                                                    </a>
 
                                                                     <a href="{{ route('dashboard.' . $model_name . '.edit', $row->id) }}"
                                                                         class="btn btn-outline-primary btn-sm  box-shadow-3 mr-1 mb-1">
@@ -125,7 +83,9 @@ $model_name = 'playlists';
 
                                             </tbody>
                                         </table>
-                                        <div class="justify-content-center d-flex">
+                                        <div class="d-flex justify-content-center mt-5">
+
+                                            {{ $videos->appends(request()->query())->links() }}
 
                                         </div>
                                     </div>
@@ -134,24 +94,3 @@ $model_name = 'playlists';
                         </div>
                     </div>
                 </section>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center mt-5">
-
-            {{ $rows->appends(request()->query())->links() }}
-
-        </div>
-    </div>
-
-
-
-    <!-- Modal delete -->
-
-    @include('dashboard.includes.alerts.model_delete')
-
-
-
-
-
-
-@endsection

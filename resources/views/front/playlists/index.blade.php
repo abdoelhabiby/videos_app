@@ -1,6 +1,15 @@
 @extends('layouts.front')
 
 
+@section('meta_des')
+
+
+@endsection
+@section('meta_key')
+
+@endsection
+
+
 @section('title')
 
     | {{ $title }}
@@ -16,7 +25,7 @@
                 <h1>{{ $title }}</h1>
             </div>
 
-            <div class="row">
+            <div class="row " >
 
                 @foreach ($rows as $row)
                     <div class="col-md-4">

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-define('PAGINATE_COUNT', 3); // make get paginate count from model dynamic hhhhh
+define('PAGINATE_COUNT', 10); // make get paginate count from model dynamic hhhhh
 
 
 Route::group(['middleware' => 'auth:admin'], function () {
@@ -19,12 +19,13 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'skills' => "SkillController",
         'tags' => "TagController",
         'pages' => "PageController",
-        'playlists' => "PlaylistController",
         'videos' => "VideoController",
 
     ], [
         'as' => "dashboard", "except" => "show"
     ]);
+
+    Route::resource('playlists', "PlaylistController",['as' => "dashboard"]);
 
 
     Route::delete('video/comments/{comment}',"VideoCommentController@destroy")->name('dasboard.video.comment.destroy');

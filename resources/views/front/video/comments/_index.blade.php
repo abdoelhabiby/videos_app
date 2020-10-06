@@ -9,7 +9,13 @@
                 @foreach ($video->comments as $comment)
                     <tr id="row-{{ $comment->id }}">
                         <td class="col">
-                            <h5 class="text-white">{{ $comment->user->name }}</h5>
+                            <a
+                                href="{{ route('front.profile', [$comment->user->id, pageNameReplaceespace($comment->user->name)]) }}">
+                                <img width="50" height="50"
+                                    src="{{asset($comment->user->image)}}" alt="Circle Image"
+                                    class="img-circle img-no-padding img-responsive">
+                                <h5 class="text-white d-inline ml-1">{{ $comment->user->name }}</h5>
+                            </a>
                             <p id="text_comment">{!! nl2br($comment->comment) !!}</p>
                             <span>{{ $comment->created_at }}</span>
 

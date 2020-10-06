@@ -1,6 +1,11 @@
 @extends('layouts.front')
 
 
+
+
+@section('meta_des'){{$row->meta_description}}
+@endsection@section('meta_key'){{$row->meta_keywords}}@endsection
+
 @section('title')
 
     | {{ $title }}

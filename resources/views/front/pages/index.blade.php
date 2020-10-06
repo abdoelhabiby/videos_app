@@ -1,5 +1,7 @@
 @extends('layouts.front')
 
+@section('meta_des'){{$page->meta_description}}@endsection
+@section('meta_key'){{$page->meta_keywords}}@endsection
 
 @section('title')
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Tag;
 use App\Models\Skill;
+use App\Models\Video;
 use App\Models\Category;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
@@ -20,7 +21,15 @@ class PlaylistController extends DashboardController
         parent::__construct($model);
     }
 
+//-----------------------------------------------------
 
+public function show(Playlist $playlist)
+{
+     $videos = Video::where('playlist_id',$playlist->id)->paginate(PAGINATE_COUNT);
+
+    return view('dashboard.playlists.show',compact('playlist', 'videos'));
+}
+//-----------------------------------------------------
     public function create()
     {
         $skills = Skill::select('name', 'id')->get();
@@ -30,7 +39,7 @@ class PlaylistController extends DashboardController
         return view('dashboard.' . $this->getClassNameModel() . '.create', compact('skills', 'tags', 'categories'));
     }
 
-
+//-----------------------------------------------------
     public function store(PlaylistRequest $request)
     {
 
@@ -86,7 +95,7 @@ class PlaylistController extends DashboardController
             return redirect()->route('dashboard.' . $this->getClassNameModel() . '.create')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
-
+//-----------------------------------------------------
 
 
     public function edit($id)
@@ -105,7 +114,7 @@ class PlaylistController extends DashboardController
         ]));
     }
 
-
+//-----------------------------------------------------
 
     public function update(PlaylistRequest $request, Playlist $playlist)
     {

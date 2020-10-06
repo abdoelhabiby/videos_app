@@ -1,5 +1,8 @@
 @extends('layouts.front')
 
+@section('meta_des'){{$video->meta_description}}@endsection
+@section('meta_key'){{$video->meta_keywords}}@endsection
+
 
 @section('title')
 
@@ -53,7 +56,7 @@
                     @endif
                 </div>
 
-                <div class="clearfix"></div>
+                <div class="clearfix mb-2"></div>
             </div>
 
             <div class="jumbotron pt-1">

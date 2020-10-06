@@ -1,6 +1,15 @@
 @extends('layouts.front')
 
 
+
+@section('meta_des')
+
+
+@endsection
+@section('meta_key')
+
+@endsection
+
 @section('content')
 
 

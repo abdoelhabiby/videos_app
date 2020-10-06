@@ -1,10 +1,20 @@
  <nav class="navbar navbar-expand-lg fixed-top navbar-transparent "
      color-on-scroll="{{ request()->url() == route('welcome') ? '150' : '-1' }}">
      <div class="container">
-         <div class="navbar-translate">
+         <div class="navbar-translate d-flex">
              <a class="navbar-brand" href="{{ route('welcome') }}" rel="tooltip" data-placement="bottom">
                  Videos App v1
              </a>
+
+             <div class="form-search mt-1">
+                 <form action="{{route('front.playlist_video.search')}}" method="get" class="d-flex">
+                     <input type="text" name="search" value="{{trim(request()->search)}}" placeholder="search.." class="form-control" style="margin-top: 13px;height:34px">
+
+                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-search"></i></button>
+
+                 </form>
+             </div>
+
              <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse"
                  data-target="#navigation" aria-controls="navigation-index" aria-expanded="false"
                  aria-label="Toggle navigation">
@@ -38,6 +48,8 @@
                          </div>
                      </div>
                  </li>
+
+
 
                  <li class="nav-item">
                      <!-- DropDown Skils -->
@@ -80,11 +92,15 @@
                                  {{ auth()->user()->name }}
                              </a>
                              <div class="dropdown-menu">
-                                <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('submit_logout').submit()" class="dropdown-item">logout</a>
+                                 <a href="{{ route('front.profile', [user()->id, pageNameReplaceespace(user()->name)]) }}" class="dropdown-item">Profile</a>
 
-                               <form action="{{route('logout')}}" id="submit_logout" method="POST">
-                                   @csrf
-                               </form>
+                                 <a href="{{ route('logout') }}"
+                                     onclick="event.preventDefault(); document.getElementById('submit_logout').submit()"
+                                     class="dropdown-item">logout</a>
+
+                                 <form action="{{ route('logout') }}" id="submit_logout" method="POST">
+                                     @csrf
+                                 </form>
 
                              </div>
                          </div>

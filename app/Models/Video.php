@@ -17,6 +17,7 @@ class Video extends Model
         "published",
         "admin_id",
         "playlist_id",
+        "order",
     ];
 
 
@@ -38,6 +39,12 @@ class Video extends Model
     public function playlist()
     {
         return $this->belongsTo(Playlist::class,'playlist_id');
+    }
+
+
+    public function scopeOrder($query)
+    {
+        return $query->orderBy('order','asc');
     }
 
 

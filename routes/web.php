@@ -13,15 +13,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-define('FRONT_PAGINATE', 10);
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
+define('FRONT_PAGINATE', 9);
 
 
 Route::group(['namespace' => 'Front'], function () {
+
+    Route::get('/', 'WelcomeController@index')->name('welcome');
+
+    Route::get('/search', 'WelcomeController@search')->name('front.playlist_video.search');
+
+    //---------------------profile -----------------------
+    Route::get('/profile/{user}/{name?}', 'ProfileController@index')->name('front.profile');
+
+    Route::group(['middleware' => 'auth'], function () {
+
+        Route::put('/profile', 'ProfileController@update')->middleware('auth')->name('front.profile.update');
+        Route::put('/profile/password', 'ProfileController@cahengePassword')->middleware('auth')->name('front.profile.password');
+    });
+    //---------------------profile -----------------------
+
+    //----------------------pages-----------------------
+
+
+    Route::get("page/{page:name}", 'WelcomeController@page')->name('front.page');
+
+
 
     Route::get('/playlists', "PlaylistController@index")->name('front.playlist.index');
     Route::get('/playlists/{playlist}', "PlaylistController@show")->name('front.playlist.show');
@@ -54,14 +71,11 @@ Route::group(['namespace' => 'Front'], function () {
 
     //--------------start contact us ---------------------
 
-     Route::post("/conatct-us","ContactUsController@store")->name('front.contact-us.store');
+    Route::post("/conatct-us", "ContactUsController@store")->name('front.contact-us.store');
 
     //--------------end contact us -----------------------
 
-    //----------------------pages-----------------------
 
-
-    Route::get("page/{page:name}",'WelcomeController@page')->name('front.page');
 
 
 
