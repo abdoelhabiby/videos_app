@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\User;
+use App\Models\Admin;
 use App\Models\Playlist;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,6 +45,11 @@ class Video extends Model
     public function scopeOrder($query)
     {
         return $query->orderBy('order','asc');
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published',1);
     }
 
 

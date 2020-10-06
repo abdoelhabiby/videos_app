@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
 
          $this->call(SuperAdminSeeder::class);
+         $this->call(StartAppSeeder::class);
+         $this->call(VideoSeeder::class);
     }
 }

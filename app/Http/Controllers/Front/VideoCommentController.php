@@ -22,10 +22,14 @@ class VideoCommentController extends Controller
             $comment->user()->associate($request->user_id);
             $video->comments()->save($comment);
 
+            alert()->success('Success', 'success add comment');
 
-            return redirect()->route('front.playlist.videos.show', [$video->id, '#comments'])->with(['success' => "success add comment"]);
+
+            return redirect()->route('front.playlist.videos.show', [$video->id, '#comments']);
         } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => "error ! pleas tray later"]);
+            alert()->error('Error ', 'sorry tray again later!!');
+
+            return redirect()->back();
         }
     }
 

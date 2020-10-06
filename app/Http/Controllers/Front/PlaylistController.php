@@ -27,7 +27,7 @@ class PlaylistController extends Controller
         $playlist = Playlist::with([
             'category',
             'videos' => function($q){
-                return $q->order();
+                return $q->published()->order();
             },
             'skills',
             'tags'
@@ -75,9 +75,14 @@ class PlaylistController extends Controller
     {
 
 
-        $video = Video::where('id', $id)->with(['playlist', 'comments.user', 'admin' => function ($q) {
+        $video = Video::published()->where('id', $id)->with(['playlist', 'comments.user', 'admin' => function ($q) {
             return $q->select('name', 'id');
         }])->first();
+
+        if(!$video)
+        {
+            abort(404);
+        }
 
 
 

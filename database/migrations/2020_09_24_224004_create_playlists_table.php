@@ -18,7 +18,7 @@ class CreatePlaylistsTable extends Migration
             $table->string('name');
             $table->string('image');
             $table->integer('category_id');
-            $table->text('description');
+            $table->longText('description');
             $table->string('meta_keywords')->nullable();
             $table->string('meta_description')->nullable();
             $table->timestamps();

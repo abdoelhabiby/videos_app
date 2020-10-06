@@ -74,14 +74,14 @@ public function show(Playlist $playlist)
 
 
 
-            $video =  Playlist::create($validated);
+            $playlist =  Playlist::create($validated);
 
             if (count($skills) > 0) {
-                $video->skills()->sync($skills);
+                $playlist->skills()->sync($skills);
             }
 
             if (count($tags) > 0) {
-                $video->tags()->sync($tags);
+                $playlist->tags()->sync($tags);
             }
 
 

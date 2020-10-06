@@ -13,7 +13,7 @@
                             <div class="card-body">
                                 <div class="card-title">
                                     <button class="btn btn-outline-info btn-sm mb-2"
-                                        style="cursor: auto">{{ $row->videos()->count() }}
+                                        style="cursor: auto">{{ $row->videos()->published()->count() }}
                                         videos</button>
                                 </div>
                                 <p class="card-text">{{ Str::limit($row->description, 200) }}</p>

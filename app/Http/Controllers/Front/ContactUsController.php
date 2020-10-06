@@ -15,9 +15,15 @@ class ContactUsController extends Controller
         try {
             Contact::create($request->validated());
 
-            return redirect()->back()->with(['success' => 'succes add messag ewe wille reponse to your email soooon']);
+            alert()->success('Success', 'succes add messag we wille reponse to your email soooon');
+
+
+            return redirect()->back();
         } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => 'sorry tray again later!!']);
+
+            alert()->error('Error ', 'sorry tray again later!!');
+
+            return redirect()->back();
 
         }
     }
