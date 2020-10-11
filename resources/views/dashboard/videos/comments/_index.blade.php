@@ -12,7 +12,8 @@
             <div class="row mb-1">
 
                 <div class="col-md-11 ">
-                    <h5>{{ $comment->user->name }}</h5>
+                    <a href="{{route('dashboard.users.edit',$comment->user->id)}}"><img src="{{ asset($comment->user->image) }}" alt="" width="45" height="45"
+                            class="rounded-circle mr-1">{{ $comment->user->name }}</a>
                     <p>{{ $comment->comment }}</p>
                     <span>{{ $comment->created_at }}</span>
 
@@ -73,7 +74,7 @@
                         <form action="{{ route('dasboard.comment.reply.store', $comment->id) }}" method="post">
                             @csrf
 
-                            <label for="" >reply for comment</label>
+                            <label for="">reply for comment</label>
 
                             <textarea type="text" rows="4" class="form-control mt-1" placeholder="add reply  "
                                 name="reply"></textarea>

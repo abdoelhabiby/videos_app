@@ -14,8 +14,14 @@ class HomeController extends Controller
 
 
 
+
+
     public function index()
     {
+
+
+
+
         $playlists = Playlist::count();
         $videos = Video::count();
         $users = User::count();

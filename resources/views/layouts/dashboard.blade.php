@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description"  content="">
+    <meta name="description" content="">
     <meta name="keywords" content=" ">
 
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> videos app @yield('title') </title>
     <link rel="apple-touch-icon" href="{{ asset('admin') }}/images/ico/apple-icon-120.png">
@@ -35,28 +35,33 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/vendors/css/forms/toggle/switchery.min.css">
 
-{{-- --------------------rtl --------------------------- --}}
+    {{-- --------------------rtl ---------------------------
+    --}}
 
-    {{-- @if('rtl' == 'test rtl') --}}
+    {{-- @if ('rtl' == 'test rtl')
+        --}}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/pages/chat-application.css">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN MODERN CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/app.css">
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css-rtl/custom-rtl.css"> --}}
-    <!-- END MODERN CSS-->
-    <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/pages/timeline.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/menu/menu-types/vertical-menu.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/pages/chat-application.css">
+        <!-- END VENDOR CSS-->
+        <!-- BEGIN MODERN CSS-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/app.css">
+        {{--
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css-rtl/custom-rtl.css">
+        --}}
+        <!-- END MODERN CSS-->
+        <!-- BEGIN Page Level CSS-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/menu/menu-types/vertical-menu.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/colors/palette-gradient.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/core/colors/palette-gradient.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/pages/timeline.css">
 
-    {{-- @endif --}}
+        {{-- @endif --}}
 
 
 
-{{-- ----------------------------end rtl ------------------------------------------------- --}}
+    {{-- ----------------------------end rtl
+    ------------------------------------------------- --}}
 
     <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/fonts/simple-line-icons/style.css">
 
@@ -74,9 +79,25 @@
             font-family: 'Cairo', sans-serif;
         }
 
-
+        .unread {
+            background: #EEE
+        }
 
     </style>
+
+
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.8.1/echo.iife.min.js"
+        integrity="sha512-ksYghyTUS4zG9uK9YDF5XLXLCi4/+s02PsujMroDkRHjIoPKCwxr12cLYRkZSuw5U70VYC0w3QJ23uPWFXHLcA=="
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.8.1/echo.js"
+        integrity="sha512-XPbYz2WHuAXIJIrn05xwPN/FBauU8d3B4Ql7JaakpM3wGsoA5g4BK3aaAuv6XnaPhdRpNKw9ZUCrBH2vLWiPKQ=="
+        crossorigin="anonymous"></script>
+
+
+
 
     @stack('css')
 </head>
@@ -142,7 +163,8 @@
     <script src="{{ asset('admin') }}/js/scripts/customizer.js" type="text/javascript"></script>
     <!-- END MODERN JS-->
     <!-- BEGIN PAGE LEVEL JS-->
-    {{-- <script src="{{ asset('admin') }}/js/scripts/pages/dashboard-crypto.js" type="text/javascript"></script> --}}
+    {{-- <script src="{{ asset('admin') }}/js/scripts/pages/dashboard-crypto.js"
+        type="text/javascript"></script> --}}
 
 
     <script src="{{ asset('admin') }}/js/scripts/tables/datatables/datatable-basic.js" type="text/javascript"></script>
@@ -215,7 +237,33 @@
 
     </script>
 
-    <script src="{{asset('admin/js/custom.js')}}"></script>
+    <script src="{{ asset('admin/js/custom.js') }}"></script>
+
+
+
+    {{-- <script src="{{ asset('js/pusher.js') }}"></script>
+    --}}
+
+
+    <script>
+         Pusher.logToConsole = true;
+
+            window.Echo = new Echo({
+
+                broadcaster: 'pusher',
+                key: '2c9bbe2e60d7a5bca5b6',
+                cluster: 'mt1',
+                forceTLS: true,
+                authEndpoint: '/broadcasting/auth',
+
+
+            });
+    </script>
+
+
+
+    @yield('admin_notification_in_include_nav')
+
 
     @stack('js')
 

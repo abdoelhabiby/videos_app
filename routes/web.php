@@ -28,10 +28,20 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::group(['middleware' => 'auth'], function () {
 
-        Route::put('/profile', 'ProfileController@update')->middleware('auth')->name('front.profile.update');
-        Route::put('/profile/password', 'ProfileController@cahengePassword')->middleware('auth')->name('front.profile.password');
-    });
+        Route::put('/profile', 'ProfileController@update')->name('front.profile.update');
+        Route::put('/profile/password', 'ProfileController@cahengePassword')->name('front.profile.password');
+
     //---------------------profile -----------------------
+
+        //-------------------notifications-------------------
+        Route::get('notifications', 'UserNotifications@index')->name('user.notifications.index');
+        Route::post('notifications', 'UserNotifications@latest')->name('user.notifications.latest');
+        Route::delete('notifications/{id}', 'UserNotifications@destroy')->name('user.notifications.destroy');
+    //-------------------notifications-------------------
+
+    });
+
+
 
     //----------------------pages-----------------------
 

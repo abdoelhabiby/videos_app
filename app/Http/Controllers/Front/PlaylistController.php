@@ -8,6 +8,7 @@ use App\Models\Video;
 use App\Models\Category;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class PlaylistController extends Controller
@@ -26,7 +27,7 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::with([
             'category',
-            'videos' => function($q){
+            'videos' => function ($q) {
                 return $q->published()->order();
             },
             'skills',
@@ -79,10 +80,23 @@ class PlaylistController extends Controller
             return $q->select('name', 'id');
         }])->first();
 
-        if(!$video)
-        {
+        if (!$video) {
             abort(404);
         }
+
+        if (user()) {
+            $notify_id = request()->noti_id ?? '';
+
+            if ($notify_id != '') {
+                $noification = DB::table('notifications')->where('id', $notify_id)->first();
+
+                if ($noification) {
+                    user()->notifications->where('id', $notify_id)->markAsRead();
+                }
+            }
+        }
+
+
 
 
 

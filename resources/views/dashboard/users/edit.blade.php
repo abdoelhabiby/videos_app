@@ -65,6 +65,18 @@ $model_name = 'users';
 
                                 <div class="card-content collapse show">
                                     <div class="card-body">
+
+
+
+                                        {{-- ----show image user -------------------
+                                        --}}
+                                        <div class="d-flex justify-content-center">
+                                            <img src="{{ asset($row->image) }}" alt="" width="195" height="195"
+                                            class="rounded-circle mr-1">
+                                        </div>
+                                        {{-- ----show image user -------------------
+                                        --}}
+
                                         <form class="form"
                                             action="{{ route('dashboard.' . $model_name . '.update', $row->id) }}"
                                             method="post" enctype="multipart/form-data">

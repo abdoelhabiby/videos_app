@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\CommentReplyRequest;
 use App\Models\CommentReply;
 use App\Models\VideoComment;
 use Illuminate\Http\Request;
+use App\Events\CommentReplyEvent;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\CommentReplyRequest;
 
 class CommentReplyController extends Controller
 {
@@ -14,6 +15,7 @@ class CommentReplyController extends Controller
 
     public function store(CommentReplyRequest $request,VideoComment $comment)
     {
+
 
 
 
@@ -25,9 +27,18 @@ class CommentReplyController extends Controller
 
              $comment->replies()->save($reply);
 
-            return redirect()->route('front.playlist.videos.show', [$comment->video->id, '#comments'])->with(['success' => "success add comment"]);
+            event(new CommentReplyEvent($comment));
+
+
+            alert()->success('Success', 'success add reply');
+
+
+            return redirect()->route('front.playlist.videos.show', [$comment->video->id, '#comments']);
          } catch (\Throwable $th) {
-             return redirect()->back()->with(['error' => "error ! pleas tray later"]);
+
+            alert()->error('Error', 'somw errors happend pleas try again later');
+
+             return redirect()->back();
          }
 
     }

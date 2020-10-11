@@ -22,7 +22,7 @@
                     <a href=""><i class="la la-users"></i>
                         <span class="menu-title" data-i18n="nav.dash.main"> {{ ucfirst($module_name) }}</span>
                         <span
-                            class="badge badge badge-info badge-pill float-right mr-2">{{ App\Models\Admin::where('group','admin')->count() }}</span>
+                            class="badge badge badge-info badge-pill float-right mr-2">{{ App\Models\Admin::where('group', 'admin')->count() }}</span>
                     </a>
                     <ul class="menu-content">
                         <li class="active"><a class="menu-item"
@@ -247,7 +247,7 @@
 
 
             {{-- ------------start nav item---------------}}
-   @php
+            @php
             $module_name = 'contacts';
             @endphp
 
@@ -264,6 +264,23 @@
                     </li>
 
                 </ul>
+            </li>
+
+            {{-- -------------end nav item------}}
+
+
+            {{-- ------------start nav item---------------}}
+            @php
+            $module_name = 'notifications';
+            @endphp
+
+            <li class="nav-item {{ isActive($module_name) }}">
+
+                <a href="{{ route('admin.' . $module_name . '.index') }}"><i class="ficon ft-bell "></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> {{ ucfirst($module_name) }}</span>
+
+                </a>
+
             </li>
 
             {{-- -------------end nav item------}}

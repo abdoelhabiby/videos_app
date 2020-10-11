@@ -97,7 +97,23 @@ class VideoController extends DashboardController
 
     public function edit($id)
     {
+
+
+
         $row = $this->model->findOrFail($id);
+
+
+        $notify_id = request()->noti_id ?? '';
+
+        if ($notify_id != '') {
+            $noification = DB::table('notifications')->where('id', $notify_id)->first();
+
+            if ($noification) {
+                admin()->notifications->where('id', $notify_id)->markAsRead();
+            }
+        }
+
+
         $playlists = Playlist::select('id', 'name')->get();
 
         $comments = $row->comments()->with(['user', 'replies'])->get();

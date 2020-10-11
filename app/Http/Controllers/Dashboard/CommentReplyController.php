@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\CommentReplyRequest;
 use App\Models\CommentReply;
 use App\Models\VideoComment;
 use Illuminate\Http\Request;
+use App\Events\CommentReplyEvent;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\CommentReplyRequest;
 
 class CommentReplyController extends Controller
 {
@@ -14,8 +15,6 @@ class CommentReplyController extends Controller
 
     public function store(CommentReplyRequest $request,VideoComment $comment)
     {
-
-
 
          try {
 
@@ -25,8 +24,12 @@ class CommentReplyController extends Controller
 
              $comment->replies()->save($reply);
 
+
+             event(new CommentReplyEvent($comment));
+
             return redirect()->route('dashboard.videos.edit', [$comment->video->id, '#comments'])->with(['success' => "success add comment"]);
          } catch (\Throwable $th) {
+             return $th->getMessage();
              return redirect()->back()->with(['error' => "error ! pleas tray later"]);
          }
 
