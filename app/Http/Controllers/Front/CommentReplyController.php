@@ -35,6 +35,7 @@ class CommentReplyController extends Controller
 
             return redirect()->route('front.playlist.videos.show', [$comment->video->id, '#comments']);
          } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
 
             alert()->error('Error', 'somw errors happend pleas try again later');
 
@@ -64,6 +65,7 @@ class CommentReplyController extends Controller
             return response()->json(['reply' => $reply->reply],200);
 
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
 
             abort(404);
         }
@@ -87,6 +89,7 @@ class CommentReplyController extends Controller
 
             return response()->json(['success' => 'success delete'], 200);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
 
             abort(404);
         }

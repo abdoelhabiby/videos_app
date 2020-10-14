@@ -46,6 +46,8 @@ class AdminNotificationController extends Controller
          return redirect()->back()->with(['success' => "success create"]);
 
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
 
         }

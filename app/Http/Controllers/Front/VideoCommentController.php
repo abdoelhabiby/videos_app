@@ -45,7 +45,7 @@ class VideoCommentController extends Controller
             return redirect()->route('front.playlist.videos.show', [$video->id, '#comments']);
         } catch (\Throwable $th) {
 
-            return $th->getMessage();
+            \Illuminate\Support\Facades\Log::alert($th);
             alert()->error('Error ', 'sorry tray again later!!');
 
             return redirect()->back();

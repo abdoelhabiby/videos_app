@@ -91,7 +91,7 @@ public function show(Playlist $playlist)
         } catch (\Throwable $th) {
             DB::rollback();
 
-            return $th->getMessage();
+            \Illuminate\Support\Facades\Log::alert($th);
             return redirect()->route('dashboard.' . $this->getClassNameModel() . '.create')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
@@ -175,7 +175,7 @@ public function show(Playlist $playlist)
             return redirect()->route('dashboard.' . $this->getClassNameModel() . '.index')->with(['success' => "success update"]);
         } catch (\Throwable $th) {
 
-            return $th->getMessage();
+            \Illuminate\Support\Facades\Log::alert($th);
 
             DB::rollback();
             return redirect()->route('dashboard.' . $this->getClassNameModel() . '.edit',$playlist->id)->with(['error' => "some errors happend pleas try again later"]);

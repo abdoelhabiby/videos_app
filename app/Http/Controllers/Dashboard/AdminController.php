@@ -59,6 +59,8 @@ class AdminController extends DashboardController
 
             return redirect()->route('dashboard.admins.index')->with(['success' => "success create"]);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->route('dashboard.admins.index')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
@@ -99,6 +101,8 @@ class AdminController extends DashboardController
 
             return redirect()->route('dashboard.admins.index')->with(['success' => "success update"]);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->route('dashboard.admins.index')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }

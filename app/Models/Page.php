@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Page extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         "name",
         "description",
@@ -13,4 +16,10 @@ class Page extends Model
         "meta_description",
         "image",
     ];
+
+
+
+    protected static $logAttributes = ['*'];
+
+    protected static $logName = 'Page ';
 }

@@ -58,7 +58,7 @@ class ContactUsController extends DashboardController
 
         } catch (\Throwable $th) {
 
-            return $th->getMessage();
+            \Illuminate\Support\Facades\Log::alert($th);
 
             return redirect()->back()->with(['error' => 'sorry try later !']);
         }
@@ -80,6 +80,7 @@ class ContactUsController extends DashboardController
 
          } catch (\Throwable $th) {
 
+            \Illuminate\Support\Facades\Log::alert($th);
 
             return redirect()->back()->with(['error' => 'sorry try later !']);
         }

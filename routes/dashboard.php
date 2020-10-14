@@ -8,13 +8,33 @@ define('PAGINATE_COUNT', 10); // make get paginate count from model dynamic hhhh
 
 Route::group(['middleware' => 'auth:admin'], function () {
 
+    //---------------------------admin profile-----------------------
 
+    Route::get('profile','AdminProfileController@index')->name('admin.profile');
+    Route::put('profile','AdminProfileController@update')->name('admin.profile.update');
+    Route::put('profile/password','AdminProfileController@password')->name('admin.profile.password');
+    //---------------------------admin profile-----------------------
+
+
+
+    Route::get('logs/exceptions', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.exceptions');
+
+    Route::get('logs/actions', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.exceptions');
+
+    Route::resource('logs/actions', 'LogsActionController', [
+        'except' => ['create', 'store', 'update', 'edit'],
+        'as' => 'logs'
+    ]);
+
+    Route::get('test', function () {
+        return view('dashboard.test');
+    });
 
     //--------------------admin AdminNotificationController --------------
 
 
-    Route::get('admin/notifications','AdminNotificationController@index')->name('admin.notifications.index');
-    Route::delete('admin/notifications/{notification}','AdminNotificationController@destroy')->name('admin.notifications.destroy');
+    Route::get('admin/notifications', 'AdminNotificationController@index')->name('admin.notifications.index');
+    Route::delete('admin/notifications/{notification}', 'AdminNotificationController@destroy')->name('admin.notifications.destroy');
 
 
     //------------ajax to navbar---------------------------------------------------

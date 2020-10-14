@@ -72,6 +72,8 @@ class DashboardController extends Controller
 
             return redirect()->route('dashboard.' . $this->getClassNameModel() . '.index')->with(['success' => "success delete"]);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->route('dashboard.' . $this->getClassNameModel() . '.index')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }

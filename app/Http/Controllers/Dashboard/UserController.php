@@ -59,6 +59,8 @@ class UserController extends DashboardController
             return redirect()->route('dashboard.users.index')->with(['success' => "success create"]);
 
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->route('dashboard.users.index')->with(['error' => "somw errors happend pleas try again later"]);
 
         }
@@ -107,6 +109,8 @@ class UserController extends DashboardController
             return redirect()->route('dashboard.users.index')->with(['success' => "success update"]);
 
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->route('dashboard.users.index')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }

@@ -139,6 +139,7 @@ class VideoController extends DashboardController
 
             return redirect()->back()->with(['success' => "success update"]);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
 
             return redirect()->back()->with(['error' => "some errors happend pleas try again later"]);
         }
@@ -158,6 +159,8 @@ class VideoController extends DashboardController
 
             return redirect()->back()->with(['success' => "success delete"]);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
         }
     }

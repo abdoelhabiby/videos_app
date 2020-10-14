@@ -20,6 +20,8 @@ class ContactUsController extends Controller
 
             return redirect()->back();
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
 
             alert()->error('Error ', 'sorry tray again later!!');
 

@@ -41,9 +41,16 @@ class ProfileController extends Controller
 
             User::where('id', user()->id)->update($validated);
 
-            return redirect()->back()->with(['success' => "success update"]);
+            alert()->success('Success', 'success update"');
+
+
+
+            return redirect()->back();
         } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
+            \Illuminate\Support\Facades\Log::alert($th);
+            alert()->error('Error', 'somw errors happend pleas try again later');
+
+            return redirect()->back();
         }
     }
 

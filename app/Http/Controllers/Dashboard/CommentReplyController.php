@@ -29,7 +29,7 @@ class CommentReplyController extends Controller
 
             return redirect()->route('dashboard.videos.edit', [$comment->video->id, '#comments'])->with(['success' => "success add comment"]);
          } catch (\Throwable $th) {
-             return $th->getMessage();
+            \Illuminate\Support\Facades\Log::alert($th);
              return redirect()->back()->with(['error' => "error ! pleas tray later"]);
          }
 
@@ -56,6 +56,7 @@ class CommentReplyController extends Controller
             return response()->json(['reply' => $reply->reply],200);
 
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
 
             abort(404);
         }
@@ -79,6 +80,7 @@ class CommentReplyController extends Controller
 
             return response()->json(['success' => 'success delete'], 200);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
 
             abort(404);
         }

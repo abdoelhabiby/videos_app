@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class VideoComment extends Model
 {
+
+    use LogsActivity;
 
     protected $fillable = ['comment'];
 
@@ -25,4 +28,9 @@ class VideoComment extends Model
         return $this->belongsTo(Video::class,'video_id','id');
 
     }
+
+    protected static $logAttributes = ['*'];
+
+    protected static $logName = 'VideoComment ';
+
 }

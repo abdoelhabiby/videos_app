@@ -29,6 +29,8 @@ class SkillController extends DashboardController
 
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success create"]);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
@@ -47,6 +49,8 @@ class SkillController extends DashboardController
 
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['success' => "success update"]);
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->route('dashboard.' . $this->module_name . '.index')->with(['error' => "somw errors happend pleas try again later"]);
         }
     }

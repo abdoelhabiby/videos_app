@@ -35,6 +35,7 @@
                                     alt="Card image cap">
                                 <div class="card-body">
                                     <div class="card-title">
+                                        <h3 class="m-0">{{$row->name}}</h3>
                                         <button class="btn btn-outline-info btn-sm mb-2"
                                             style="cursor: auto">{{ $row->videos()->published()->count() }}
                                             videos</button>

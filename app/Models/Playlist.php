@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Playlist extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         "name",
         "image",
@@ -15,6 +18,11 @@ class Playlist extends Model
         "category_id",
     ];
 
+
+
+    protected static $logAttributes = ['*'];
+
+    protected static $logName = 'Playlist ';
 
     public function category()
     {

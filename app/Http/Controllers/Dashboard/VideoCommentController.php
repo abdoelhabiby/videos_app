@@ -30,6 +30,8 @@ class VideoCommentController extends Controller
             return redirect()->route('dashboard.videos.edit',[$comment->video_id, '#comments'])->with(['success' => "success update"]);
 
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
+
             return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
         }
     }
@@ -46,6 +48,7 @@ class VideoCommentController extends Controller
             return redirect()->route('dashboard.videos.edit', [$comment->video_id, '#comments'])->with(['success' => "success delete"]);
         } catch (\Throwable $th) {
 
+            \Illuminate\Support\Facades\Log::alert($th);
 
             return redirect()->back()->with(['error' => "somw errors happend pleas try again later"]);
         }

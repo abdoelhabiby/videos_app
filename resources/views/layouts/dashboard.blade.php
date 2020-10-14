@@ -86,6 +86,10 @@
     </style>
 
 
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.8.1/echo.iife.min.js"
@@ -96,6 +100,12 @@
         integrity="sha512-XPbYz2WHuAXIJIrn05xwPN/FBauU8d3B4Ql7JaakpM3wGsoA5g4BK3aaAuv6XnaPhdRpNKw9ZUCrBH2vLWiPKQ=="
         crossorigin="anonymous"></script>
 
+
+     <script src="https://unpkg.com/sweetalert2@7.12.10/dist/sweetalert2.all.js"></script>
+
+     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.min.js" integrity="sha512-0vG5umGvBsJb1uUhxWMlXMNn4Bxe1+MDSDbYodUAOYIEwv5dBPRXt+Rq/ox8ybXZecRuckC72YREBiGyNg0AMg==" crossorigin="anonymous"></script> --}}
 
 
 
@@ -122,6 +132,7 @@
     @yield('content')
 
     {{-- -------- end content --}}
+
 
     {{-- -------- start footer --}}
 
@@ -241,23 +252,26 @@
 
 
 
-    {{-- <script src="{{ asset('js/pusher.js') }}"></script>
-    --}}
+
 
 
     <script>
-         Pusher.logToConsole = true;
+        Pusher.logToConsole = true;
 
-            window.Echo = new Echo({
+        window.Echo = new Echo({
 
-                broadcaster: 'pusher',
-                key: '2c9bbe2e60d7a5bca5b6',
-                cluster: 'mt1',
-                forceTLS: true,
-                authEndpoint: '/broadcasting/auth',
+            broadcaster: 'pusher',
+            key: '2c9bbe2e60d7a5bca5b6',
+            cluster: 'mt1',
+            forceTLS: true,
+            authEndpoint: '/broadcasting/auth',
 
 
-            });
+        });
+
+
+
+
     </script>
 
 
@@ -267,7 +281,12 @@
 
     @stack('js')
 
+    @stack('scripts')
+
     @yield('js')
+
+
+
 
 </body>
 

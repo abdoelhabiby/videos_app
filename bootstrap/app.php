@@ -41,6 +41,10 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+//---------------------added by me -------------------------------
+$app->register(\Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class);
+
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

@@ -33,4 +33,4 @@ Broadcast::channel('channel-comment-reply.{id}', function ($user, $id) {
  Broadcast::channel('admin.{id}', function ($admin, $id) {
 
      return (int) $admin->id === (int) $id;
-}, ['guards' => ['web', 'admin']]);
+}, ['guards' => ['admin']]);

@@ -5,9 +5,12 @@ namespace App\Models;
 use App\Models\Admin;
 use App\Models\Playlist;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Video extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         "name",
         "description",
@@ -19,6 +22,24 @@ class Video extends Model
         "playlist_id",
         "order",
     ];
+
+
+
+
+    protected static $logAttributes = [
+        "name",
+        "description",
+        "meta_keywords",
+        "meta_description",
+        "youtube",
+        "published",
+        "admin_id",
+        "playlist_id",
+        "order",
+    ];
+
+    protected static $logName = 'video';
+
 
 
 

@@ -286,6 +286,31 @@
             {{-- -------------end nav item------}}
 
 
+               {{-- ------------start nav item logs---------------}}
+            @php
+            $module_name = 'logs';
+            @endphp
+
+            <li class="nav-item {{ isActive($module_name) }}">
+
+                <a href=""><i class="ficon ft-bell "></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> {{ ucfirst($module_name) }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="active"><a class="menu-item" href="{{ route('logs.exceptions') }}"
+                            data-i18n="nav.dash.ecommerce">exceptions </a>
+                    </li>
+
+                    <li class="active"><a class="menu-item" href="{{route('logs.actions.index')}}"
+                            data-i18n="nav.dash.ecommerce">actions </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            {{-- -------------end nav item logs------}}
+
+
 
 
         </ul>

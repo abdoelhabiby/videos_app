@@ -47,6 +47,7 @@ class UserNotifications extends Controller
 
             return redirect()->back();
         } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::alert($th);
 
             alert()->success('Error', 'somw errors happend pleas try again later');
 

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Contact extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         "name",
         "email",
@@ -15,6 +18,11 @@ class Contact extends Model
     protected $casts = [
         'replied_at' => 'datetime',
     ];
+
+
+    protected static $logAttributes = ['*'];
+
+    protected static $logName = 'contact';
 
     public function replies()
     {

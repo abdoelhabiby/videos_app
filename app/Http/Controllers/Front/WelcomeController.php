@@ -45,6 +45,8 @@ class WelcomeController extends Controller
 
         } catch (\Throwable $th) {
 
+            \Illuminate\Support\Facades\Log::alert($th);
+
           return redirect()->route('welcome');
         }
     }
