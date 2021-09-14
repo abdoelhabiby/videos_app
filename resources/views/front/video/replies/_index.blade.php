@@ -7,24 +7,25 @@
         <div class="row-reply row-id-{{ $id }}">
             <h5>(admin) {{ $reply->admin->name }}</h5>
             <p class="reply-text">{{ $reply->reply }}</p>
-            <div class="d-flex">
-                {{-- ------------update reply--------- --}}
+            
+            @if (auth('admin')->user())
+            
+                <div class="d-flex">
+                    {{-- ------------update reply--------- --}}
 
-                <a href="javascript:void(0);" onclick="$('#form-update-reply-{{ $id }}').toggle()"> <i
-                        class="fa fa-edit "></i> </a>
+                    <a href="javascript:void(0);" onclick="$('#form-update-reply-{{ $id }}').toggle()"> <i
+                            class="fa fa-edit "></i> </a>
 
-                {{-- ---------------------delete ------- --}}
+                    {{-- ---------------------delete ------- --}}
 
-                <a href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-reply-{{ $id }}"> <i
-                        class="fa fa-trash text-danger"></i>
-                </a>
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-reply-{{ $id }}"> <i
+                            class="fa fa-trash text-danger"></i>
+                    </a>
 
-
-
-
-
-                {{-- ---------------------delete ---- --}}
-            </div>
+                    {{-- ---------------------delete ---- --}}
+                </div>
+            
+            @endif()
 
             <div class="form-update-replay">
 
@@ -36,7 +37,7 @@
                     @csrf
                     @method('put')
 
-                    <label for="">update reply 8</label>
+                    <label for="">update reply </label>
 
                     <textarea type="text" rows="4" class="form-control mt-1" placeholder="add reply  "
                         name="reply">{{ $reply->reply }}</textarea>
