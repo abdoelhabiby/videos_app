@@ -59,7 +59,6 @@
 
             <!-- Modal delete-->
 
-
             <div class="modal modal-delete fade" id="modal-delete-reply-{{ $id }}" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
