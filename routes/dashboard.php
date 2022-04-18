@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-define('PAGINATE_COUNT', 10); // make get paginate count from model dynamic hhhhh
+if(!defined('PAGINATE_COUNT')){
+define('PAGINATE_COUNT', 10); // make get paginate count from model dynamic
+    
+}
 
 
 Route::group(['middleware' => 'auth:admin'], function () {
