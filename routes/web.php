@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+if(!defined('FRONT_PAGINATE')){
 define('FRONT_PAGINATE', 9);
-
+    
+}
 
 Route::group(['namespace' => 'Front'], function () {
 
